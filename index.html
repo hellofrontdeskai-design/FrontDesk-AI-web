@@ -1,362 +1,1589 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FrontDesk AI — Real Conversations. Real Growth.</title>
-<meta name="description" content="FrontDesk AI helps service-based businesses respond faster, engage customers intelligently, and convert more enquiries into paying clients — across website, WhatsApp, and social media.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FrontDesk AI — Real Conversations. Real Growth.</title>
+  <meta name="description" content="FrontDesk AI helps service-based businesses respond faster, engage customers intelligently, and convert more enquiries into paying clients — across website, WhatsApp, and social media." />
 
-<link rel="icon" href="assets/logo.png" type="image/png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,680;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,680;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================
+       FrontDesk AI — style.css (embedded)
+       ========================================================== */
+
+    /* ---------- TOKENS ---------- */
+    :root {
+      --ink: #0B0B0C;
+      --ink-soft: #131215;
+      --panel: #17151A;
+      --panel-line: rgba(245, 243, 238, 0.09);
+      --paper: #F5F3EE;
+      --paper-dim: #C9C6BE;
+      --muted: #97938B;
+      --gold: #C9974B;
+      --gold-bright: #E7C077;
+      --gold-dim: rgba(201, 151, 75, 0.14);
+      --live: #6FCF97;
+
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+      --wrap: 1160px;
+      --radius: 14px;
+    }
+
+    /* ---------- RESET ---------- */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    h1,
+    h2,
+    h3 {
+      font-family: var(--serif);
+      font-weight: 600;
+      margin: 0;
+      color: var(--paper);
+    }
+    p {
+      margin: 0;
+    }
+    .wrap {
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold-bright);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ---------- GRAIN OVERLAY ---------- */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.035;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ---------- EYEBROW ---------- */
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 18px;
+    }
+    .eyebrow--light {
+      color: var(--gold-bright);
+    }
+
+    /* ---------- BUTTONS ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 26px;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 14.5px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease,
+        border-color 0.18s ease, color 0.18s ease;
+      white-space: nowrap;
+    }
+    .btn--gold {
+      background: var(--gold);
+      color: #191307;
+    }
+    .btn--gold:hover {
+      background: var(--gold-bright);
+      transform: translateY(-1px);
+    }
+    .btn--line {
+      border-color: rgba(245, 243, 238, 0.25);
+      color: var(--paper);
+    }
+    .btn--line:hover {
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+    }
+    .btn--ghost {
+      border-color: rgba(245, 243, 238, 0.2);
+      color: var(--paper);
+      padding: 11px 22px;
+      font-size: 13.5px;
+    }
+    .btn--ghost:hover {
+      border-color: var(--gold-bright);
+      color: var(--gold-bright);
+    }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 11, 12, 0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--panel-line);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+    }
+    .brand__mark {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+    .brand__name {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .brand__name em {
+      color: var(--gold);
+      font-style: normal;
+    }
+    .nav__links {
+      display: flex;
+      gap: 30px;
+    }
+    .nav__links a {
+      font-size: 14.5px;
+      color: var(--paper-dim);
+      transition: color 0.15s ease;
+    }
+    .nav__links a:hover {
+      color: var(--gold-bright);
+    }
+    .nav__toggle {
+      display: none;
+    }
+
+    @media (max-width: 860px) {
+      .nav__links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: var(--ink-soft);
+        border-bottom: 1px solid var(--panel-line);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease;
+      }
+      .nav__links.open {
+        max-height: 320px;
+      }
+      .nav__links a {
+        padding: 16px 28px;
+        border-top: 1px solid var(--panel-line);
+      }
+      .nav__cta {
+        display: none;
+      }
+      .nav__toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 26px;
+        background: none;
+        border: none;
+        padding: 4px;
+        cursor: pointer;
+      }
+      .nav__toggle span {
+        height: 2px;
+        width: 100%;
+        background: var(--paper);
+        border-radius: 2px;
+      }
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      padding: 88px 0 76px;
+    }
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero__title {
+      font-size: clamp(34px, 4.6vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+    }
+    .hero__title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--gold-bright);
+    }
+
+    .hero__sub {
+      margin-top: 24px;
+      max-width: 46ch;
+      font-size: 17.5px;
+      color: var(--paper-dim);
+      line-height: 1.7;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .hero__promise {
+      margin-top: 38px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--paper-dim);
+      border-top: 1px solid var(--panel-line);
+      padding-top: 24px;
+      max-width: 46ch;
+    }
+    .hero__promise em {
+      color: var(--gold-bright);
+      font-style: italic;
+    }
+    .promise__mark {
+      color: var(--gold);
+      font-style: normal;
+      margin-right: 6px;
+    }
+
+    /* --- Ledger --- */
+    .hero__desk {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .ledger {
+      background: var(--panel);
+      border: 1px solid var(--panel-line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.7);
+    }
+    .ledger__head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--panel-line);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+    }
+    .ledger__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--live);
+      box-shadow: 0 0 0 3px rgba(111, 207, 151, 0.18);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.35;
+      }
+    }
+    .ledger__date {
+      margin-left: auto;
+      color: var(--muted);
+    }
+
+    .ledger__body {
+      padding: 8px 0;
+      min-height: 340px;
+    }
+
+    .ledger__row {
+      display: grid;
+      grid-template-columns: 56px 88px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 12px 20px;
+      font-size: 13.5px;
+      border-bottom: 1px solid var(--panel-line);
+      opacity: 0;
+      transform: translateY(6px);
+      animation: rowIn 0.5s ease forwards;
+    }
+    .ledger__row:last-child {
+      border-bottom: none;
+    }
+    @keyframes rowIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .ledger__time {
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 12.5px;
+      padding-top: 1px;
+    }
+    .ledger__status {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 5px;
+      height: fit-content;
+    }
+    .ledger__status--new {
+      background: rgba(111, 207, 151, 0.14);
+      color: var(--live);
+    }
+    .ledger__status--qualify {
+      background: var(--gold-dim);
+      color: var(--gold-bright);
+    }
+    .ledger__status--booked {
+      background: rgba(245, 243, 238, 0.1);
+      color: var(--paper);
+    }
+    .ledger__text {
+      color: var(--paper-dim);
+    }
+    .ledger__text b {
+      color: var(--paper);
+      font-weight: 600;
+    }
+
+    .desk__caption {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    @media (max-width: 920px) {
+      .hero__inner {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding: 56px 0 56px;
+      }
+    }
+
+    /* ---------- CHANNEL STRIP ---------- */
+    .strip {
+      border-top: 1px solid var(--panel-line);
+      border-bottom: 1px solid var(--panel-line);
+      background: var(--ink-soft);
+    }
+    .strip__inner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      padding: 22px 28px;
+    }
+    .strip__label {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .strip__items {
+      display: flex;
+      gap: 34px;
+      flex-wrap: wrap;
+    }
+    .strip__items span {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--paper-dim);
+      font-size: 16px;
+    }
+
+    /* ---------- INDUSTRIES (TABS) ---------- */
+    .industries {
+      padding: 110px 0;
+    }
+    .tabs {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 40px;
+      margin-top: 8px;
+    }
+    .tabs__nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
+    .tabs__nav button {
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 12px 16px;
+      font-family: var(--sans);
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--paper-dim);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+      border-left: 3px solid transparent;
+    }
+    .tabs__nav button:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--paper);
+    }
+    .tabs__nav button[aria-selected="true"] {
+      background: var(--gold-dim);
+      color: var(--gold-bright);
+      border-left-color: var(--gold);
+    }
+    .tabs__panel {
+      background: var(--panel);
+      border: 1px solid var(--panel-line);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      min-height: 280px;
+    }
+    .tab__content {
+      display: none;
+      animation: fadeUp 0.3s ease;
+    }
+    .tab__content[aria-hidden="false"] {
+      display: block;
+    }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .tab__content h3 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .tab__content p {
+      color: var(--paper-dim);
+      font-size: 15px;
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+    .tab__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+    }
+    .tab__tags span {
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 4px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--panel-line);
+      border-radius: 20px;
+      color: var(--paper-dim);
+    }
+
+    @media (max-width: 860px) {
+      .tabs {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .tabs__nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        position: static;
+        gap: 4px;
+      }
+      .tabs__nav button {
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+      .tabs__nav button[aria-selected="true"] {
+        border-left-color: transparent;
+        border-bottom-color: var(--gold);
+      }
+      .tabs__panel {
+        padding: 24px;
+      }
+    }
+
+    /* ---------- WHY FRONTDESK AI ---------- */
+    .why {
+      padding: 110px 0;
+      background: var(--ink-soft);
+    }
+    .why__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .why__card {
+      background: var(--panel);
+      border: 1px solid var(--panel-line);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .why__card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .why__card .entry__stamp {
+      display: block;
+      width: 40px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 4px;
+      margin-bottom: 18px;
+    }
+    .why__card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .why__card p {
+      color: var(--paper-dim);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    @media (max-width: 760px) {
+      .why__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- HOW IT WORKS ---------- */
+    .how {
+      background: var(--gold);
+      color: #191307;
+      padding: 110px 0;
+    }
+    .how .section__head--light h2 {
+      color: #191307;
+    }
+    .how .eyebrow--light {
+      color: rgba(25, 19, 7, 0.65);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-top: 20px;
+    }
+    .step__no {
+      display: block;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: rgba(25, 19, 7, 0.55);
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      color: #191307;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .step p {
+      color: rgba(25, 19, 7, 0.72);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    .step {
+      border-top: 2px solid rgba(25, 19, 7, 0.25);
+      padding-top: 22px;
+    }
+    @media (max-width: 860px) {
+      .steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+    }
+    @media (max-width: 560px) {
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+      .how {
+        padding: 76px 0;
+      }
+    }
+
+    /* ---------- SOLUTIONS (build) ---------- */
+    .build {
+      padding: 110px 0;
+    }
+    .section__head {
+      max-width: 640px;
+      margin-bottom: 56px;
+    }
+    .section__head h2 {
+      font-size: clamp(26px, 3.4vw, 38px);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section__sub {
+      color: var(--paper-dim);
+      font-size: 16.5px;
+      line-height: 1.7;
+    }
+
+    .build__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--panel-line);
+      border: 1px solid var(--panel-line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .entry {
+      background: var(--panel);
+      padding: 34px 30px;
+      position: relative;
+      transition: background 0.2s ease;
+    }
+    .entry:hover {
+      background: #1B191F;
+    }
+    .entry__stamp {
+      display: block;
+      width: 22px;
+      height: 22px;
+      margin-bottom: 22px;
+      background-image:
+        linear-gradient(var(--gold) 0 0), linear-gradient(var(--gold) 0 0),
+        linear-gradient(var(--gold) 0 0), linear-gradient(var(--gold) 0 0);
+      background-size: 9px 9px;
+      background-repeat: no-repeat;
+      background-position: top left, top right, bottom left, bottom right;
+      opacity: 0.85;
+    }
+    .entry h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+    .entry p {
+      color: var(--paper-dim);
+      font-size: 14.5px;
+      line-height: 1.65;
+    }
+    @media (max-width: 860px) {
+      .build__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 560px) {
+      .build__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .build {
+        padding: 76px 0;
+      }
+    }
+
+    /* ---------- CHANNELS / ABOUT ---------- */
+    .channels {
+      padding: 110px 0;
+    }
+    .channels__inner {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .channels__photo {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--panel-line);
+      filter: grayscale(1) contrast(1.05);
+    }
+    .channels__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      aspect-ratio: 4/5;
+    }
+    .channels__copy h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+    .channels__copy p {
+      color: var(--paper-dim);
+      margin-bottom: 18px;
+      font-size: 15.5px;
+      line-height: 1.75;
+    }
+    .channels__copy .btn {
+      margin-top: 10px;
+    }
+    @media (max-width: 860px) {
+      .channels__inner {
+        grid-template-columns: 1fr;
+      }
+      .channels__photo {
+        max-width: 280px;
+      }
+      .channels {
+        padding: 76px 0;
+      }
+    }
+
+    /* ---------- FAQ ---------- */
+    .faq {
+      padding: 110px 0;
+      background: var(--ink-soft);
+    }
+    .accordion {
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .accordion__item {
+      border: 1px solid var(--panel-line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--panel);
+      transition: border-color 0.2s ease;
+    }
+    .accordion__item:hover {
+      border-color: var(--gold-dim);
+    }
+    .accordion__item.is-open {
+      border-color: var(--gold);
+    }
+    .accordion__q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 18px 22px;
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--paper);
+      cursor: pointer;
+      transition: background 0.15s ease;
+      text-align: left;
+    }
+    .accordion__q:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .accordion__icon {
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--gold);
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .accordion__item.is-open .accordion__icon {
+      transform: rotate(45deg);
+    }
+    .accordion__a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 22px;
+    }
+    .accordion__item.is-open .accordion__a {
+      max-height: 200px;
+      padding: 0 22px 22px;
+    }
+    .accordion__a p {
+      color: var(--paper-dim);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ---------- CTA ---------- */
+    .cta {
+      background: var(--ink-soft);
+      border-top: 1px solid var(--panel-line);
+      padding: 110px 0;
+    }
+    .cta__inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .cta h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      margin-bottom: 18px;
+    }
+    .cta__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 44px;
+      padding: 0;
+      font-size: 16px;
+      color: var(--paper-dim);
+    }
+    .cta__list li::before {
+      content: "— ";
+      color: var(--gold);
+    }
+
+    .cta__whatsapp {
+      padding: 16px 40px;
+      font-size: 17px;
+      margin-bottom: 28px;
+    }
+    .cta__or {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .cta__form {
+      text-align: left;
+      background: var(--panel);
+      border: 1px solid var(--panel-line);
+      border-radius: var(--radius);
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .field label {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .field input,
+    .field select {
+      background: var(--ink);
+      border: 1px solid var(--panel-line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--paper);
+      font-family: var(--sans);
+      font-size: 14.5px;
+      transition: border-color 0.15s ease;
+    }
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--gold);
+    }
+    .cta__submit {
+      grid-column: 1 / -1;
+      width: 100%;
+      margin-top: 6px;
+      padding: 14px;
+      font-size: 15px;
+    }
+    .cta__note {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: -6px;
+    }
+    @media (max-width: 640px) {
+      .cta__form {
+        grid-template-columns: 1fr;
+        padding: 26px;
+      }
+      .cta {
+        padding: 76px 0;
+      }
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      padding: 52px 0 40px;
+      border-top: 1px solid var(--panel-line);
+    }
+    .footer__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+    .footer__tag {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--paper-dim);
+      font-size: 15px;
+      margin-top: -8px;
+    }
+    .footer__links {
+      display: flex;
+      gap: 26px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer__links a {
+      font-size: 13.5px;
+      color: var(--paper-dim);
+      transition: color 0.15s ease;
+    }
+    .footer__links a:hover {
+      color: var(--gold-bright);
+    }
+    .footer__meta {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .footer__meta a {
+      color: var(--paper-dim);
+    }
+    .footer__meta a:hover {
+      color: var(--gold-bright);
+    }
+  </style>
 </head>
 <body>
 
-<div class="grain" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
 
-<!-- ============ NAV ============ -->
-<header class="nav" id="top">
-  <div class="wrap nav__inner">
-    <a href="#top" class="brand">
-      <img src="assets/logo.png" alt="FrontDesk AI" class="brand__mark">
-      <span class="brand__name">FrontDesk<em>AI</em></span>
-    </a>
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a href="#top" class="brand">
+        <!-- using the exact filename you provided -->
+        <img src="assets/file_0000000006ec7246acfb4808b8b5094d.png" alt="FrontDesk AI" class="brand__mark">
+        <span class="brand__name">FrontDesk<em>AI</em></span>
+      </a>
 
-    <nav class="nav__links" id="navLinks">
-      <a href="#industries">Industries</a>
-      <a href="#how">How It Works</a>
-      <a href="#solutions">Solutions</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <nav class="nav__links" id="navLinks">
+        <a href="#industries">Industries</a>
+        <a href="#how">How It Works</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-    <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--ghost nav__cta">Book a Free Demo</a>
-    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="wrap hero__inner">
-    <div class="hero__copy">
-      <p class="eyebrow">Front Desk, Reimagined</p>
-      <h1 class="hero__title">
-        Every enquiry <em>answered.</em><br>
-        Every lead <em>followed up.</em><br>
-        Every time.
-      </h1>
-      <p class="hero__sub">
-        FrontDesk AI helps service-based businesses respond faster, engage customers
-        intelligently, and convert more enquiries into paying clients.
-      </p>
-
-      <div class="hero__actions">
-        <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--gold">Book Your Free Demo</a>
-        <a href="#how" class="btn btn--line">See How It Works</a>
-      </div>
-
-      <p class="hero__promise">
-        <span class="promise__mark">—</span>
-        We don't replace your team. We make sure they <em>never miss an opportunity.</em>
-      </p>
+      <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--ghost nav__cta">Book a Free Demo</a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </header>
 
-    <div class="hero__desk" aria-hidden="true">
-      <div class="ledger">
-        <div class="ledger__head">
-          <span class="ledger__dot"></span>
-          <span>Front Desk — Live</span>
-          <span class="ledger__date" id="ledgerDate">Today</span>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">Front Desk, Reimagined</p>
+        <h1 class="hero__title">
+          Every enquiry <em>answered.</em><br>
+          Every lead <em>followed up.</em><br>
+          Every time.
+        </h1>
+        <p class="hero__sub">
+          FrontDesk AI helps service-based businesses respond faster, engage customers
+          intelligently, and convert more enquiries into paying clients.
+        </p>
+
+        <div class="hero__actions">
+          <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--gold">Book Your Free Demo</a>
+          <a href="#how" class="btn btn--line">See How It Works</a>
         </div>
-        <div class="ledger__body" id="ledgerBody"></div>
+
+        <p class="hero__promise">
+          <span class="promise__mark">—</span>
+          We don't replace your team. We make sure they <em>never miss an opportunity.</em>
+        </p>
       </div>
-      <p class="desk__caption">A simulation of FrontDesk AI handling real enquiries — capture to booking, unattended.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ============ CHANNEL STRIP ============ -->
-<section class="strip">
-  <div class="wrap strip__inner">
-    <span class="strip__label">Where we answer for you</span>
-    <div class="strip__items">
-      <span>Website Chat</span>
-      <span>WhatsApp</span>
-      <span>Instagram</span>
-      <span>Facebook</span>
-      <span>SMS</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ INDUSTRIES ============ -->
-<section class="industries" id="industries">
-  <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow">Built for Businesses That Depend on Customer Enquiries</p>
-      <h2>Every missed enquiry is a missed opportunity.</h2>
-      <p class="section__sub">
-        FrontDesk AI helps service-based businesses respond faster, engage customers
-        intelligently, and convert more enquiries into paying clients.
-      </p>
-    </div>
-
-    <div class="tabs" id="industryTabs">
-      <div class="tabs__nav" role="tablist" id="tabNav"></div>
-      <div class="tabs__panel" id="tabPanel"></div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ WHY FRONTDESK AI ============ -->
-<section class="why">
-  <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow">Why FrontDesk AI</p>
-      <h2>Three ways we protect every opportunity that reaches you.</h2>
-    </div>
-
-    <div class="why__grid">
-      <article class="why__card">
-        <span class="entry__stamp"></span>
-        <h3>Capture Every Opportunity</h3>
-        <p>Every enquiry receives an immediate response, helping your business stay responsive and professional.</p>
-      </article>
-      <article class="why__card">
-        <span class="entry__stamp"></span>
-        <h3>Engage Customers Intelligently</h3>
-        <p>Provide helpful, natural conversations that answer questions, qualify prospects, and guide customers through the next step.</p>
-      </article>
-      <article class="why__card">
-        <span class="entry__stamp"></span>
-        <h3>Convert More Leads</h3>
-        <p>Turn more enquiries into appointments, consultations, and paying customers with intelligent follow-up systems.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ HOW IT WORKS ============ -->
-<section class="how" id="how">
-  <div class="wrap">
-    <div class="section__head section__head--light">
-      <p class="eyebrow eyebrow--light">How It Works</p>
-      <h2>From first message to a qualified handover, in one flow.</h2>
-    </div>
-
-    <div class="steps steps--4">
-      <div class="step">
-        <span class="step__no">01</span>
-        <h3>A customer reaches out</h3>
-        <p>Through your website, WhatsApp, Facebook, Instagram, or other digital channels.</p>
-      </div>
-      <div class="step">
-        <span class="step__no">02</span>
-        <h3>FrontDesk AI responds instantly</h3>
-        <p>Customers receive immediate answers and guidance without waiting.</p>
-      </div>
-      <div class="step">
-        <span class="step__no">03</span>
-        <h3>We qualify the enquiry</h3>
-        <p>Important information is collected before your team gets involved.</p>
-      </div>
-      <div class="step">
-        <span class="step__no">04</span>
-        <h3>Your team takes over</h3>
-        <p>Your staff receives organized, qualified enquiries ready for follow-up.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ OUR SOLUTIONS ============ -->
-<section class="build" id="solutions">
-  <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow">Our Solutions</p>
-      <h2>Customer engagement systems, built to keep the desk staffed — always.</h2>
-    </div>
-
-    <div class="build__grid build__grid--5">
-      <article class="entry">
-        <span class="entry__stamp"></span>
-        <h3>AI Receptionists</h3>
-        <p>Professional virtual receptionists available around the clock.</p>
-      </article>
-      <article class="entry">
-        <span class="entry__stamp"></span>
-        <h3>Lead Capture Systems</h3>
-        <p>Capture and organize enquiries across multiple channels.</p>
-      </article>
-      <article class="entry">
-        <span class="entry__stamp"></span>
-        <h3>Customer Engagement</h3>
-        <p>Create meaningful conversations that improve customer experiences.</p>
-      </article>
-      <article class="entry">
-        <span class="entry__stamp"></span>
-        <h3>Appointment Scheduling</h3>
-        <p>Automate bookings while keeping your calendar organized.</p>
-      </article>
-      <article class="entry">
-        <span class="entry__stamp"></span>
-        <h3>Intelligent Follow-ups</h3>
-        <p>Stay connected with prospects until they're ready to move forward.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ CHANNELS / ABOUT ============ -->
-<section class="channels" id="channels">
-  <div class="wrap channels__inner">
-    <div class="channels__photo">
-      <img src="assets/founder.jpg" alt="Alex, founder of FrontDesk AI">
-    </div>
-    <div class="channels__copy">
-      <p class="eyebrow">Built by Alex</p>
-      <h2>One inbox, every channel, no missed opportunities.</h2>
-      <p>
-        FrontDesk AI was built on a simple observation: most businesses don't lose customers
-        to their competitors — they lose them to silence. A message left on read, a form
-        nobody followed up, a WhatsApp enquiry that arrived after hours and never got a reply.
-      </p>
-      <p>
-        FrontDesk AI keeps the desk staffed around the clock, so every conversation gets the
-        response it deserves, and every team stays organized, informed, and in control.
-      </p>
-      <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--gold">Talk to Alex</a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FAQ ============ -->
-<section class="faq" id="faq">
-  <div class="wrap">
-    <div class="section__head">
-      <p class="eyebrow">Frequently Asked Questions</p>
-      <h2>Everything you need to know before you start.</h2>
-    </div>
-
-    <div class="accordion" id="accordion">
-      <div class="accordion__item is-open">
-        <button class="accordion__q">
-          <span>Does FrontDesk AI replace my team?</span>
-          <span class="accordion__icon">+</span>
-        </button>
-        <div class="accordion__a">
-          <p>No. FrontDesk AI supports your team by handling repetitive conversations while ensuring every enquiry receives a prompt, professional response.</p>
+      <div class="hero__desk" aria-hidden="true">
+        <div class="ledger">
+          <div class="ledger__head">
+            <span class="ledger__dot"></span>
+            <span>Front Desk — Live</span>
+            <span class="ledger__date" id="ledgerDate">Today</span>
+          </div>
+          <div class="ledger__body" id="ledgerBody"></div>
         </div>
+        <p class="desk__caption">A simulation of FrontDesk AI handling real enquiries — capture to booking, unattended.</p>
       </div>
-      <div class="accordion__item">
-        <button class="accordion__q">
-          <span>Can it work with WhatsApp?</span>
-          <span class="accordion__icon">+</span>
-        </button>
-        <div class="accordion__a">
-          <p>Yes. Our systems integrate seamlessly with WhatsApp and other communication channels to engage customers wherever they reach you — WhatsApp integration requires a one-time setup fee.</p>
+    </div>
+  </section>
+
+  <!-- ============ CHANNEL STRIP ============ -->
+  <section class="strip">
+    <div class="wrap strip__inner">
+      <span class="strip__label">Where we answer for you</span>
+      <div class="strip__items">
+        <span>Website Chat</span>
+        <span>WhatsApp</span>
+        <span>Instagram</span>
+        <span>Facebook</span>
+        <span>SMS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INDUSTRIES ============ -->
+  <section class="industries" id="industries">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Built for Businesses That Depend on Customer Enquiries</p>
+        <h2>Every missed enquiry is a missed opportunity.</h2>
+        <p class="section__sub">
+          FrontDesk AI helps service-based businesses respond faster, engage customers
+          intelligently, and convert more enquiries into paying clients.
+        </p>
+      </div>
+
+      <div class="tabs" id="industryTabs">
+        <div class="tabs__nav" role="tablist" id="tabNav"></div>
+        <div class="tabs__panel" id="tabPanel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY FRONTDESK AI ============ -->
+  <section class="why">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Why FrontDesk AI</p>
+        <h2>Three ways we protect every opportunity that reaches you.</h2>
+      </div>
+
+      <div class="why__grid">
+        <article class="why__card">
+          <span class="entry__stamp"></span>
+          <h3>Capture Every Opportunity</h3>
+          <p>Every enquiry receives an immediate response, helping your business stay responsive and professional.</p>
+        </article>
+        <article class="why__card">
+          <span class="entry__stamp"></span>
+          <h3>Engage Customers Intelligently</h3>
+          <p>Provide helpful, natural conversations that answer questions, qualify prospects, and guide customers through the next step.</p>
+        </article>
+        <article class="why__card">
+          <span class="entry__stamp"></span>
+          <h3>Convert More Leads</h3>
+          <p>Turn more enquiries into appointments, consultations, and paying customers with intelligent follow-up systems.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="section__head section__head--light">
+        <p class="eyebrow eyebrow--light">How It Works</p>
+        <h2>From first message to a qualified handover, in one flow.</h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step__no">01</span>
+          <h3>A customer reaches out</h3>
+          <p>Through your website, WhatsApp, Facebook, Instagram, or other digital channels.</p>
         </div>
-      </div>
-      <div class="accordion__item">
-        <button class="accordion__q">
-          <span>Do I need a new website?</span>
-          <span class="accordion__icon">+</span>
-        </button>
-        <div class="accordion__a">
-          <p>No. FrontDesk AI works with your existing website and digital channels, making implementation simple.</p>
+        <div class="step">
+          <span class="step__no">02</span>
+          <h3>FrontDesk AI responds instantly</h3>
+          <p>Customers receive immediate answers and guidance without waiting.</p>
         </div>
-      </div>
-      <div class="accordion__item">
-        <button class="accordion__q">
-          <span>Is it suitable for small businesses?</span>
-          <span class="accordion__icon">+</span>
-        </button>
-        <div class="accordion__a">
-          <p>Absolutely. Our solutions are designed for growing businesses that want to improve customer engagement and increase conversions without adding administrative workload.</p>
+        <div class="step">
+          <span class="step__no">03</span>
+          <h3>We qualify the enquiry</h3>
+          <p>Important information is collected before your team gets involved.</p>
+        </div>
+        <div class="step">
+          <span class="step__no">04</span>
+          <h3>Your team takes over</h3>
+          <p>Your staff receives organized, qualified enquiries ready for follow-up.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ CTA ============ -->
-<section class="cta" id="contact">
-  <div class="wrap cta__inner">
-    <p class="eyebrow eyebrow--light">Ready When You Are</p>
-    <h2>Never Miss Another Customer Enquiry.</h2>
-    <ul class="cta__list">
-      <li>Capture every opportunity.</li>
-      <li>Respond instantly.</li>
-      <li>Deliver exceptional customer experiences.</li>
-    </ul>
-
-    <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--gold cta__whatsapp">Book Your Free Demo</a>
-
-    <p class="cta__or">or tell us a little about your business, and we'll reach out</p>
-
-    <form class="cta__form" id="contactForm" action="https://formsubmit.co/hello.frontdeskai@gmail.com" method="POST">
-      <input type="hidden" name="_subject" value="New Demo Request — FrontDesk AI Website">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="text" name="_honey" style="display:none">
-
-      <div class="field">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your full name" required>
+  <!-- ============ OUR SOLUTIONS ============ -->
+  <section class="build" id="solutions">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Our Solutions</p>
+        <h2>Customer engagement systems, built to keep the desk staffed — always.</h2>
       </div>
-      <div class="field">
-        <label for="business">Business</label>
-        <input type="text" id="business" name="business" placeholder="Business name" required>
+
+      <div class="build__grid">
+        <article class="entry">
+          <span class="entry__stamp"></span>
+          <h3>AI Receptionists</h3>
+          <p>Professional virtual receptionists available around the clock.</p>
+        </article>
+        <article class="entry">
+          <span class="entry__stamp"></span>
+          <h3>Lead Capture Systems</h3>
+          <p>Capture and organize enquiries across multiple channels.</p>
+        </article>
+        <article class="entry">
+          <span class="entry__stamp"></span>
+          <h3>Customer Engagement</h3>
+          <p>Create meaningful conversations that improve customer experiences.</p>
+        </article>
+        <article class="entry">
+          <span class="entry__stamp"></span>
+          <h3>Appointment Scheduling</h3>
+          <p>Automate bookings while keeping your calendar organized.</p>
+        </article>
+        <article class="entry">
+          <span class="entry__stamp"></span>
+          <h3>Intelligent Follow-ups</h3>
+          <p>Stay connected with prospects until they're ready to move forward.</p>
+        </article>
       </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@business.com" required>
+    </div>
+  </section>
+
+  <!-- ============ CHANNELS / ABOUT ============ -->
+  <section class="channels" id="channels">
+    <div class="wrap channels__inner">
+      <div class="channels__photo">
+        <!-- using the exact filename you provided -->
+        <img src="assets/file_000000001ca871f49a78a103ef635af1.jpg" alt="Alex, founder of FrontDesk AI">
       </div>
-      <div class="field">
-        <label for="channel">Where do enquiries come in?</label>
-        <select id="channel" name="Enquiry channel">
-          <option>Website</option>
-          <option>WhatsApp</option>
-          <option>Instagram / Facebook</option>
-          <option>Phone &amp; SMS</option>
-          <option>All of the above</option>
-        </select>
+      <div class="channels__copy">
+        <p class="eyebrow">Built by Alex</p>
+        <h2>One inbox, every channel, no missed opportunities.</h2>
+        <p>
+          FrontDesk AI was built on a simple observation: most businesses don't lose customers
+          to their competitors — they lose them to silence. A message left on read, a form
+          nobody followed up, a WhatsApp enquiry that arrived after hours and never got a reply.
+        </p>
+        <p>
+          FrontDesk AI keeps the desk staffed around the clock, so every conversation gets the
+          response it deserves, and every team stays organized, informed, and in control.
+        </p>
+        <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--gold">Talk to Alex</a>
       </div>
-      <button type="submit" class="btn btn--line cta__submit">Request a Callback</button>
-      <p class="cta__note" id="formNote">We reply within one business day.</p>
-    </form>
-  </div>
-</section>
+    </div>
+  </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="wrap footer__inner">
-    <a href="#top" class="brand">
-      <img src="assets/logo.png" alt="FrontDesk AI" class="brand__mark">
-      <span class="brand__name">FrontDesk<em>AI</em></span>
-    </a>
-    <p class="footer__tag">Real conversations. Real growth.</p>
+  <!-- ============ FAQ ============ -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">Frequently Asked Questions</p>
+        <h2>Everything you need to know before you start.</h2>
+      </div>
 
-    <nav class="footer__links">
-      <a href="#industries">Industries</a>
-      <a href="#how">How It Works</a>
-      <a href="#solutions">Solutions</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <div class="accordion" id="accordion">
+        <div class="accordion__item is-open">
+          <button class="accordion__q">
+            <span>Does FrontDesk AI replace my team?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__a">
+            <p>No. FrontDesk AI supports your team by handling repetitive conversations while ensuring every enquiry receives a prompt, professional response.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__q">
+            <span>Can it work with WhatsApp?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__a">
+            <p>Yes. Our systems integrate seamlessly with WhatsApp and other communication channels to engage customers wherever they reach you — WhatsApp integration requires a one-time setup fee.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__q">
+            <span>Do I need a new website?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__a">
+            <p>No. FrontDesk AI works with your existing website and digital channels, making implementation simple.</p>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__q">
+            <span>Is it suitable for small businesses?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__a">
+            <p>Absolutely. Our solutions are designed for growing businesses that want to improve customer engagement and increase conversions without adding administrative workload.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <p class="footer__meta">
-      WhatsApp: <a href="https://wa.me/2348121909425" target="_blank" rel="noopener">0812 190 9425</a>
-      &nbsp;·&nbsp; Email: <a href="mailto:hello.frontdeskai@gmail.com">hello.frontdeskai@gmail.com</a>
-    </p>
-    <p class="footer__meta">Built by Alex · © <span id="year"></span> FrontDesk AI. All rights reserved.</p>
-  </div>
-</footer>
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="contact">
+    <div class="wrap cta__inner">
+      <p class="eyebrow eyebrow--light">Ready When You Are</p>
+      <h2>Never Miss Another Customer Enquiry.</h2>
+      <ul class="cta__list">
+        <li>Capture every opportunity.</li>
+        <li>Respond instantly.</li>
+        <li>Deliver exceptional customer experiences.</li>
+      </ul>
 
-<script src="js/script.js"></script>
+      <a href="https://wa.me/2348121909425?text=Hi%20FrontDesk%20AI%2C%20I%27d%20like%20to%20book%20a%20free%20demo." target="_blank" rel="noopener" class="btn btn--gold cta__whatsapp">Book Your Free Demo</a>
+
+      <p class="cta__or">or tell us a little about your business, and we'll reach out</p>
+
+      <form class="cta__form" id="contactForm" action="https://formsubmit.co/hello.frontdeskai@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New Demo Request — FrontDesk AI Website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required>
+        </div>
+        <div class="field">
+          <label for="business">Business</label>
+          <input type="text" id="business" name="business" placeholder="Business name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@business.com" required>
+        </div>
+        <div class="field">
+          <label for="channel">Where do enquiries come in?</label>
+          <select id="channel" name="Enquiry channel">
+            <option>Website</option>
+            <option>WhatsApp</option>
+            <option>Instagram / Facebook</option>
+            <option>Phone &amp; SMS</option>
+            <option>All of the above</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn--line cta__submit">Request a Callback</button>
+        <p class="cta__note" id="formNote">We reply within one business day.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <a href="#top" class="brand">
+        <img src="assets/file_0000000006ec7246acfb4808b8b5094d.png" alt="FrontDesk AI" class="brand__mark">
+        <span class="brand__name">FrontDesk<em>AI</em></span>
+      </a>
+      <p class="footer__tag">Real conversations. Real growth.</p>
+
+      <nav class="footer__links">
+        <a href="#industries">Industries</a>
+        <a href="#how">How It Works</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <p class="footer__meta">
+        WhatsApp: <a href="https://wa.me/2348121909425" target="_blank" rel="noopener">0812 190 9425</a>
+        &nbsp;·&nbsp; Email: <a href="mailto:hello.frontdeskai@gmail.com">hello.frontdeskai@gmail.com</a>
+      </p>
+      <p class="footer__meta">Built by Alex · © <span id="year"></span> FrontDesk AI. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // ==========================================================
+    // 1. NAV TOGGLE
+    // ==========================================================
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', function() {
+      const open = navLinks.classList.toggle('open');
+      this.setAttribute('aria-expanded', open);
+    });
+
+    // Close nav on link click (mobile)
+    document.querySelectorAll('.nav__links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ==========================================================
+    // 2. LEDGER (Hero simulation)
+    // ==========================================================
+    const ledgerBody = document.getElementById('ledgerBody');
+    const now = new Date();
+    document.getElementById('ledgerDate').textContent =
+      now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+    const sampleEntries = [
+      { time: '09:14', status: 'new', text: 'Sarah — "Do you have availability for a consult?"' },
+      { time: '09:18', status: 'qualify', text: 'Sarah — "Yes, I’d like to book a 30-min call."' },
+      { time: '09:22', status: 'booked', text: 'Sarah — Appointment confirmed for Thursday.' },
+      { time: '09:47', status: 'new', text: 'James — "I need a quote for my property."' },
+      { time: '09:52', status: 'qualify', text: 'James — "Sent property details."' },
+      { time: '10:05', status: 'new', text: 'Priya — "Do you handle dental practices?"' },
+      { time: '10:10', status: 'booked', text: 'Priya — Demo booked for tomorrow.' },
+      { time: '10:28', status: 'new', text: 'Michael — "Can you manage our WhatsApp enquiries?"' },
+      { time: '10:34', status: 'qualify', text: 'Michael — "We get 50+ messages daily."' },
+    ];
+
+    const statusMap = {
+      'new': 'new',
+      'qualify': 'qualify',
+      'booked': 'booked'
+    };
+
+    sampleEntries.forEach((entry, index) => {
+      const row = document.createElement('div');
+      row.className = 'ledger__row';
+      row.style.animationDelay = (index * 0.08) + 's';
+
+      const time = document.createElement('span');
+      time.className = 'ledger__time';
+      time.textContent = entry.time;
+
+      const status = document.createElement('span');
+      status.className = 'ledger__status ledger__status--' + statusMap[entry.status];
+      status.textContent = entry.status;
+
+      const text = document.createElement('span');
+      text.className = 'ledger__text';
+      // Bold the name part
+      const parts = entry.text.split(' — ');
+      if (parts.length === 2) {
+        text.innerHTML = `<b>${parts[0]}</b> — ${parts[1]}`;
+      } else {
+        text.textContent = entry.text;
+      }
+
+      row.appendChild(time);
+      row.appendChild(status);
+      row.appendChild(text);
+      ledgerBody.appendChild(row);
+    });
+
+    // ==========================================================
+    // 3. INDUSTRY TABS
+    // ==========================================================
+    const industriesData = [{
+      id: 'healthcare',
+      label: '🏥 Healthcare & Dental',
+      title: 'Healthcare & Dental Practices',
+      description: 'Deliver a better patient experience with instant responses, appointment scheduling, automated reminders, and intelligent patient engagement.',
+      tags: ['AI Patient Receptionists', 'Appointment Scheduling', 'Automated Reminders', 'Patient Lead Capture',
+        'Website Chat Assistants'
+      ]
+    }, {
+      id: 'realestate',
+      label: '🏠 Real Estate',
+      title: 'Real Estate',
+      description: 'Capture every property enquiry, qualify buyers automatically, and ensure no prospective buyer slips through the cracks.',
+      tags: ['AI Property Assistants', 'Instant Lead Qualification', 'WhatsApp & Website Lead Capture',
+        'Automated Follow-ups', 'Viewing Appointment Scheduling'
+      ]
+    }, {
+      id: 'law',
+      label: '⚖️ Law Firms',
+      title: 'Law Firms',
+      description: 'Provide prospective clients with immediate assistance, collect case information, and schedule consultations efficiently.',
+      tags: ['Client Intake Assistants', 'Consultation Booking', 'Case Qualification', 'Website Chat Systems',
+        'Follow-up Workflows'
+      ]
+    }, {
+      id: 'home',
+      label: '🔧 Home Services',
+      title: 'Home Services',
+      description: 'Stay connected with customers even while your team is on-site. Never miss another call or booking opportunity.',
+      tags: ['AI Receptionists', 'Job Scheduling', 'Quote Request Systems', 'Review Collection',
+        'Customer Follow-up'
+      ]
+    }, {
+      id: 'professional',
+      label: '💼 Professional Services',
+      title: 'Professional Services',
+      description: 'Whether you\'re a consulting firm, agency, accounting practice, or business advisory company, FrontDesk AI helps you capture opportunities and strengthen customer relationships.',
+      tags: ['Lead Capture Systems', 'Intelligent Website Assistants', 'Appointment Booking',
+        'Client Qualification', 'Customer Engagement Workflows'
+      ]
+    }];
+
+    const tabNav = document.getElementById('tabNav');
+    const tabPanel = document.getElementById('tabPanel');
+
+    function renderTabs() {
+      // Build nav buttons
+      tabNav.innerHTML = '';
+      industriesData.forEach((item, index) => {
+        const btn = document.createElement('button');
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+        btn.setAttribute('data-tab', item.id);
+        btn.textContent = item.label;
+        btn.addEventListener('click', () => switchTab(item.id));
+        tabNav.appendChild(btn);
+      });
+
+      // Build panel content
+      tabPanel.innerHTML = '';
+      industriesData.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'tab__content';
+        div.setAttribute('role', 'tabpanel');
+        div.setAttribute('aria-hidden', index === 0 ? 'false' : 'true');
+        div.id = 'tab-' + item.id;
+
+        div.innerHTML = `
+              <h3>${item.title}</h3>
+              <p>${item.description}</p>
+              <div class="tab__tags">
+                ${item.tags.map(tag => `<span>${tag}</span>`).join('')}
+              </div>
+            `;
+        tabPanel.appendChild(div);
+      });
+    }
+
+    function switchTab(id) {
+      // Update buttons
+      document.querySelectorAll('.tabs__nav button').forEach(btn => {
+        const selected = btn.getAttribute('data-tab') === id;
+        btn.setAttribute('aria-selected', selected);
+      });
+
+      // Update panels
+      document.querySelectorAll('.tab__content').forEach(panel => {
+        const visible = panel.id === 'tab-' + id;
+        panel.setAttribute('aria-hidden', !visible);
+      });
+    }
+
+    renderTabs();
+
+    // ==========================================================
+    // 4. ACCORDION
+    // ==========================================================
+    const accordionItems = document.querySelectorAll('.accordion__item');
+    accordionItems.forEach(item => {
+      const q = item.querySelector('.accordion__q');
+      q.addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+        // Close all
+        accordionItems.forEach(i => i.classList.remove('is-open'));
+        if (!isOpen) item.classList.add('is-open');
+      });
+    });
+
+    // ==========================================================
+    // 5. FOOTER YEAR
+    // ==========================================================
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ==========================================================
+    // 6. FORM SUBMISSION NOTE (optional)
+    // ==========================================================
+    const form = document.getElementById('contactForm');
+    const note = document.getElementById('formNote');
+    form.addEventListener('submit', function(e) {
+      // The form will submit to formsubmit.co, we just show a quick message
+      note.textContent = 'Sending… Please wait.';
+      // The actual redirect will happen after submission.
+      // We can revert after a delay in case of error, but not necessary.
+    });
+  </script>
+
 </body>
-      </html>
+  </html>
